@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package entity.service.protos;
+
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "IdentityService.Protos";
+
+message Profile {
+	string id = 1;
+    string owner_id = 2;
+    string publisher_id = 3;
+    google.protobuf.Timestamp insertion = 4;
+    google.protobuf.Timestamp change = 5;
+    string name = 6;
+    string password = 7;
+    repeated string roles = 8;
+    bool state = 9;
+}
