@@ -5,9 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CFSant.Dev.Commons" Version="1.0.4" />
-    <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
+    <PackageReference Include="CFSant.Dev.Commons" Version="1.0.9.1" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
     <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.40.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.11" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.2.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.2.3" />
@@ -17,6 +20,7 @@
   <ItemGroup>
     <Protobuf Include="Protos\identity.proto" GrpcServices="Both" />
     <Protobuf Include="Protos\profile.proto" GrpcServices="Both" />
+    <Protobuf Include="Protos\session.proto" GrpcServices="Both" />
     <Protobuf Include="Protos\credentials.proto" GrpcServices="Both" />
     <Protobuf Include="Protos\http.proto" GrpcServices="Both" />
     <Protobuf Include="Protos\annotations.proto" GrpcServices="Both" />

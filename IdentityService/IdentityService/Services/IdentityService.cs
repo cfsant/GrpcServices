@@ -1,9 +1,7 @@
+using Grpc.Core;
+using IdentityService.Protos;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using Grpc.Core;
-using System;
-using IdentityService.Protos;
-using IdentityService.Handlers;
 
 namespace IdentityService.Services
 {

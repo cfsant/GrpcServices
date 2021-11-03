@@ -12,7 +12,7 @@ service Identity {
   // Sends a greeting
   rpc Autenticate (Credentials) returns (Profile) {
 	option (google.api.http) = {
-	    post: "/v1/identity/authenticate}"
+	    post: "/v1/identity/authenticate"
 		body: "credentials"
 	};
   };
