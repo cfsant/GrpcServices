@@ -46,24 +46,24 @@ namespace IdentityService
             services.AddInternalExceptionMiddleware();
             services.AddRequestManagementExceptionMiddleware();
 
-            //var key = Encoding.ASCII.GetBytes(ProfileAutheticationTokenServices._secret);
-            //services.AddAuthentication(x =>
-            //{
-            //    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //})
-            //.AddJwtBearer(x =>
-            //{
-            //    x.RequireHttpsMetadata = false;
-            //    x.SaveToken = true;
-            //    x.TokenValidationParameters = new TokenValidationParameters
-            //    {
-            //        ValidateIssuerSigningKey = true,
-            //        IssuerSigningKey = new SymmetricSecurityKey(key),
-            //        ValidateIssuer = false,
-            //        ValidateAudience = false
-            //    };
-            //});
+            var key = Encoding.ASCII.GetBytes(ProfileAutheticationTokenServices._secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
 
             services.AddEntityFrameworkNpgsql().AddDbContext<IdentityDbContext>(opt => {
                 opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
@@ -100,8 +100,8 @@ namespace IdentityService
                 c.RoutePrefix = "swagger";
             });
 
-            //app.UseInternalExceptionMiddleware(env.EnvironmentName);
-            //app.UseRequestManagementMiddleware(env.EnvironmentName);
+            app.UseInternalExceptionMiddleware(env.EnvironmentName);
+            app.UseRequestManagementMiddleware(env.EnvironmentName);
 
             app.UseHttpsRedirection();
             app.UseRouting();

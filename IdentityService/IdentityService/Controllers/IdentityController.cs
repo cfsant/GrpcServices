@@ -3,6 +3,7 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using IdentityService.Protos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -19,11 +20,27 @@ namespace IdentityService.Controllers
         private readonly GrpcChannel _channel;
         private readonly Identity.IdentityClient _client;
 
-        public IdentityController(ILogger<IdentityController> logger)
+        public IdentityController(ILogger<IdentityController> logger, IConfiguration configuration)
         {
             _logger = logger;
-            _channel = GrpcChannel.ForAddress("https://localhost:5001");
-            _client = new Identity.IdentityClient(_channel);
+
+            var identityEndpoint = configuration.GetSection("GrpcServices")?.GetSection("Identity")?.Value;
+            if (identityEndpoint == null || identityEndpoint == default)
+            {
+                _logger.LogError("Invalid 'GrpcServices.Identity.Endpoint'.");
+
+                return;
+            }
+
+            try
+            {
+                _channel = GrpcChannel.ForAddress(identityEndpoint);
+                _client = new Identity.IdentityClient(_channel);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+            }
         }
 
         [HttpPost("authenticate")]

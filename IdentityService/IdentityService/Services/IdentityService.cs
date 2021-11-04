@@ -1,3 +1,4 @@
+using Commons.Utils;
 using Grpc.Core;
 using IdentityService.Protos;
 using Microsoft.Extensions.Logging;
@@ -16,7 +17,7 @@ namespace IdentityService.Services
 
         public override Task<Profile> Autenticate(Credentials request, ServerCallContext context)
         {
-            return base.Autenticate(request, context);
+            return Task.Run(() => Mapper.ToAssign(request, new Profile()));
         }
     }
 }
